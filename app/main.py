@@ -1,14 +1,8 @@
 from fastapi import FastAPI
+from app.api.v1.router import api_router
+from app.core.config import settings
 import os
 
-def create_app() -> FastAPI:
-    app = FastAPI(
-        title="Enterprise RAG Chatbot API",
-        description="Backend chatbot terskala dengan arsitektur modular.",
-        version="1.0.0"
-    )
-    app.include_router(chat_router, prefix="/api/v1", tags=["Chat"])
+app = FastAPI(title="Proyek Chatme Cevin", openapi_url=f"{settings.API_V1_STR}/openapi.json")
 
-    return app
-
-app = create_app()
+app.include_router(api_router, prefix=settings.API_V1_STR)
